@@ -7,7 +7,6 @@ export function usePatchStockMoveReference() {
   const mutation = useMutation({
     mutationFn: ({ id, reference }: { id: string; reference: string }) => patchStockMoveReference(id, reference),
     onSuccess: (data, variables) => {
-      // Actualizar el cache del listado y del detalle
       queryClient.invalidateQueries({ queryKey: ['stockMoves'] });
       queryClient.invalidateQueries({ queryKey: ['stockMove', variables.id] });
     },

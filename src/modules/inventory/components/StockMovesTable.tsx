@@ -1,6 +1,6 @@
 
-import type { StockMove } from '../../../core/mockApi';
 import { Link } from 'react-router-dom';
+import type { StockMove } from '../../../core/mockApi';
 
 interface StockMovesTableProps {
   data: StockMove[];
