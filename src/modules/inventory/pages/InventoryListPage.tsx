@@ -30,9 +30,20 @@ export const InventoryListPage = () => {
 		setPage(1);
 	};
 
-	return (
-		<div style={{ padding: 24 }}>
-			<h2>Listado de Movimientos de Inventario</h2>
+		return (
+			<div style={{ padding: 24 }}>
+				<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+					<h2>Listado de Movimientos de Inventario</h2>
+					<button
+						onClick={() => {
+							localStorage.removeItem('token');
+							window.location.href = '/login';
+						}}
+						style={{ padding: '8px 16px' }}
+					>
+						Cerrar sesión
+					</button>
+				</div>
 
 			<div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
 				<input
