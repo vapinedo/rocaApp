@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLogin } from '../hooks/useLogin';
 
-export default function LoginPage() {
+export function LoginPage() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const { loading, error, token, handleLogin } = useLogin();
