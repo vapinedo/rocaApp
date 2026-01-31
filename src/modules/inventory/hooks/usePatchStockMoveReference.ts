@@ -1,24 +1,22 @@
-import { useState } from 'react';
+
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { patchStockMoveReference } from '../../../core/mockApi';
-import type { StockMove } from '../../../core/mockApi';
 
 export function usePatchStockMoveReference() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<StockMove | null>(null);
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: ({ id, reference }: { id: string; reference: string }) => patchStockMoveReference(id, reference),
+    onSuccess: (data, variables) => {
+      // Actualizar el cache del listado y del detalle
+      queryClient.invalidateQueries({ queryKey: ['stockMoves'] });
+      queryClient.invalidateQueries({ queryKey: ['stockMove', variables.id] });
+    },
+  });
 
-  const patchReference = async (id: string, reference: string) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await patchStockMoveReference(id, reference);
-      setData(res);
-    } catch (err: any) {
-      setError(err.message || 'Error al editar referencia');
-    } finally {
-      setLoading(false);
-    }
+  return {
+    patchReference: (id: string, reference: string) => mutation.mutate({ id, reference }),
+    loading: mutation.isPending,
+    error: mutation.isError ? (mutation.error as Error)?.message || 'Error al editar referencia' : null,
+    data: mutation.data || null,
   };
-
-  return { patchReference, loading, error, data };
 }
