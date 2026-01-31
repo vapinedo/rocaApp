@@ -1,11 +1,11 @@
+import { useAuth } from '../hooks/useAuth';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLogin } from '../hooks/useLogin';
 
 export function LoginPage() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const { loading, error, token, handleLogin } = useLogin();
+	const { loading, error, token, handleLogin } = useAuth();
 	const navigate = useNavigate();
 
 	useEffect(() => {
