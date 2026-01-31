@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useStockMoves } from '../hooks/useStockMoves';
-import type { StockMoveType } from '../hooks/useStockMoves';
 import { StockMovesTable } from '../components/StockMovesTable';
 import { InventoryFilters } from '../components/InventoryFilters';
-import { STOCK_MOVE_TYPES } from '../../../shared/constants/stockMoveTypes';
+import { STOCK_MOVE } from '../../../shared/constants/stockMoveTypes';
 
 export const InventoryListPage = () => {
 
@@ -16,7 +15,7 @@ export const InventoryListPage = () => {
 	const { data, total, loading, error } = useStockMoves({
 		product: product || undefined,
 		warehouse: warehouse || undefined,
-		type: type ? (type as StockMoveType) : undefined,
+		type: type ? (type as STOCK_MOVE) : undefined,
 		page,
 		pageSize,
 	});
