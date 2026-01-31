@@ -1,4 +1,6 @@
+
 import type { StockMove } from '../../../core/mockApi';
+import { Link } from 'react-router-dom';
 
 interface StockMovesTableProps {
   data: StockMove[];
@@ -16,6 +18,7 @@ export const StockMovesTable = ({ data }: StockMovesTableProps) => {
           <th>Tipo</th>
           <th>Cantidad</th>
           <th>Referencia</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +30,9 @@ export const StockMovesTable = ({ data }: StockMovesTableProps) => {
             <td>{move.type}</td>
             <td>{move.quantity}</td>
             <td>{move.reference}</td>
+            <td>
+              <Link to={`/inventory/${move.id}`}>Ver detalle</Link>
+            </td>
           </tr>
         ))}
       </tbody>
