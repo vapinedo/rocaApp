@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { getStockMoves } from '../../../core/mockApi';
-import type { StockMove } from '../../../core/mockApi';
 
 export function useStockMoves(filters: {
   product?: string;
@@ -9,24 +8,15 @@ export function useStockMoves(filters: {
   page?: number;
   pageSize?: number;
 }) {
-  const [data, setData] = useState<StockMove[]>([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const query = useQuery({
+    queryKey: ['stockMoves', filters],
+    queryFn: () => getStockMoves(filters),
+  });
 
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-    getStockMoves(filters)
-      .then((res) => {
-        setData(res.data);
-        setTotal(res.total);
-      })
-      .catch((err) => {
-        setError(err.message || 'Error al cargar movimientos');
-      })
-      .finally(() => setLoading(false));
-  }, [filters.product, filters.warehouse, filters.type, filters.page, filters.pageSize]);
-
-  return { data, total, loading, error };
+  return {
+    data: query.data?.data || [],
+    total: query.data?.total || 0,
+    loading: query.isLoading,
+    error: query.isError ? (query.error as Error)?.message || 'Error al cargar movimientos' : null,
+  };
 }
