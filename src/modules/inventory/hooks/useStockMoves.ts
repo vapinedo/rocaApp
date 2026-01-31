@@ -1,14 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { getStockMoves } from '../../../core/mockApi';
-
-export type StockMoveType = 'IN' | 'OUT' | 'ADJUST';
+import { STOCK_MOVE } from '../../../shared/constants/stockMoveTypes';
 
 export interface UseStockMovesFilters {
   page?: number;
   product?: string;
   pageSize?: number;
   warehouse?: string;
-  type?: StockMoveType;
+  type?: STOCK_MOVE;
 }
 
 export function useStockMoves(filters: UseStockMovesFilters) {

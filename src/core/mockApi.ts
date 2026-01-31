@@ -1,111 +1,68 @@
-export type StockMove = {
-  id: string;
-  date: string;
-  product: string;
-  quantity: number;
-  warehouse: string;
-  reference: string;
-  type: 'IN' | 'OUT' | 'ADJUST';
+
+import { stockDB } from './stockDB';
+import { delay } from '../shared/utils/delay.util';
+import type { StockMove } from '../shared/models/stockMove';
+import { STOCK_MOVE } from '../shared/constants/stockMoveTypes';
+
+export type GetStockMovesParams = {
+  page?: number;
+  product?: string;
+  type?: STOCK_MOVE;
+  pageSize?: number;
+  warehouse?: string;
 };
 
-import { STOCK_MOVE_TYPES } from '../shared/constants/stockMoveTypes';
-
-let stockMoves: StockMove[] = [
-  {
-    id: '1',
-    type: STOCK_MOVE_TYPES[0],
-    quantity: 100,
-    date: '2026-01-01',
-    product: 'Producto A',
-    warehouse: 'Bodega Central',
-    reference: 'Ingreso inicial',
-  },
-  {
-    id: '2',
-    type: STOCK_MOVE_TYPES[1],
-    quantity: 20,
-    date: '2026-01-02',
-    product: 'Producto B',
-    warehouse: 'Bodega Norte',
-    reference: 'Venta',
-  },
-  // 18 movimientos adicionales
-  ...Array.from({ length: 18 }, (_, i) => {
-    const idx = i + 3;
-    return {
-      id: String(idx),
-      type: STOCK_MOVE_TYPES[i % STOCK_MOVE_TYPES.length],
-      quantity: 10 * (i + 1),
-      date: `2026-01-${(i % 28 + 3).toString().padStart(2, '0')}`,
-      product: `Producto ${String.fromCharCode(67 + (i % 5))}`,
-      warehouse: ['Bodega Central', 'Bodega Norte'][i % 2],
-      reference: `Referencia ${idx}`,
-    };
-  }),
-];
-
 export function login(username: string, password: string): Promise<{ token: string }> {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (username && password) {
-        resolve({ token: 'mock-token' });
-      } else {
-        reject(new Error('Credenciales inválidas'));
-      }
-    }, 500);
+  return delay(() => {
+    if (username && password) {
+      return { token: 'mock-token' };
+    } else {
+      throw new Error('Credenciales inválidas');
+    }
   });
 }
 
-export function getStockMoves({
-  product,
-  warehouse,
-  type,
-  page = 1,
-  pageSize = 10,
-}: {
-  product?: string;
-  warehouse?: string;
-  type?: 'IN' | 'OUT' | 'ADJUST';
-  page?: number;
-  pageSize?: number;
-}): Promise<{ data: StockMove[]; total: number }> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      let filtered = stockMoves;
-      if (product) filtered = filtered.filter((m) => m.product.includes(product));
-      if (warehouse) filtered = filtered.filter((m) => m.warehouse === warehouse);
-      if (type) filtered = filtered.filter((m) => m.type === type);
-      const total = filtered.length;
-      const data = filtered.slice((page - 1) * pageSize, page * pageSize);
-      resolve({ data, total });
-    }, 500);
+export function getStockMoves(params: GetStockMovesParams): Promise<{ data: StockMove[]; total: number }> {
+  const {
+    product,
+    warehouse,
+    type,
+    page = 1,
+    pageSize = 10,
+  } = params;
+
+  return delay(() => {
+    let filtered = stockDB;
+    if (product) filtered = filtered.filter((m) => m.product.includes(product));
+    if (warehouse) filtered = filtered.filter((m) => m.warehouse === warehouse);
+    if (type) filtered = filtered.filter((m) => m.type === type);
+    const total = filtered.length;
+    const data = filtered.slice((page - 1) * pageSize, page * pageSize);
+    return { data, total };
   });
 }
 
 export function getStockMoveById(id: string): Promise<StockMove> {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const move = stockMoves.find((m) => m.id === id);
-      if (move) resolve(move);
-      else reject(new Error('Movimiento no encontrado'));
-    }, 500);
+  return delay(() => {
+    const move = stockDB.find((m) => m.id === id);
+    if (move) return move;
+    throw new Error('Movimiento no encontrado');
   });
 }
 
 export function patchStockMoveReference(id: string, reference: string): Promise<StockMove> {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (reference.length < 3 || reference.length > 60) {
-        reject(new Error('La referencia debe tener entre 3 y 60 caracteres.'));
-        return;
-      }
-      const idx = stockMoves.findIndex((m) => m.id === id);
-      if (idx === -1) {
-        reject(new Error('Movimiento no encontrado'));
-        return;
-      }
-      stockMoves[idx] = { ...stockMoves[idx], reference };
-      resolve(stockMoves[idx]);
-    }, 500);
+  return delay(() => {
+    if (reference.length < 3 || reference.length > 60) {
+      throw new Error('La referencia debe tener entre 3 y 60 caracteres.');
+    }
+
+    const idx = stockDB.findIndex((m) => m.id === id);
+
+    if (idx === -1) {
+      throw new Error('Movimiento no encontrado');
+    }
+
+    stockDB[idx] = { ...stockDB[idx], reference };
+    return stockDB[idx];
   });
 }

@@ -1,5 +1,4 @@
-import type { StockMoveType } from '../hooks/useStockMoves';
-import { STOCK_MOVE_TYPES } from '../../../shared/constants/stockMoveTypes';
+import { STOCK_MOVE } from '../../../shared/constants/stockMoveTypes';
 
 interface InventoryFiltersProps {
   type: string;
@@ -40,7 +39,7 @@ export const InventoryFilters: React.FC<InventoryFiltersProps> = (props) => {
         onChange={e => setType(e.target.value)}
       >
         <option value="">Todos los tipos</option>
-        {STOCK_MOVE_TYPES.map((t: StockMoveType) => (
+        {Object.values(STOCK_MOVE).map((t) => (
           <option key={t} value={t}>{t}</option>
         ))}
       </select>

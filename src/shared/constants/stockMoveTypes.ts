@@ -1,3 +1,5 @@
-import type { StockMoveType } from '../../modules/inventory/hooks/useStockMoves';
-
-export const STOCK_MOVE_TYPES: StockMoveType[] = ['IN', 'OUT', 'ADJUST'];
+export enum STOCK_MOVE {
+    IN = 'IN',
+    OUT = 'OUT',
+    ADJUST = 'ADJUST',
+}
