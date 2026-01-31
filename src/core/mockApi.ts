@@ -28,6 +28,19 @@ let stockMoves: StockMove[] = [
     product: 'Producto B',
     warehouse: 'Bodega Norte',
   },
+  // 18 movimientos adicionales
+  ...Array.from({ length: 18 }, (_, i) => {
+    const idx = i + 3;
+    return {
+      id: String(idx),
+      type: ['IN', 'OUT', 'ADJUST'][i % 3] as 'IN' | 'OUT' | 'ADJUST',
+      quantity: 10 * (i + 1),
+      date: `2026-01-${(i % 28 + 3).toString().padStart(2, '0')}`,
+      product: `Producto ${String.fromCharCode(67 + (i % 5))}`,
+      warehouse: ['Bodega Central', 'Bodega Norte'][i % 2],
+      reference: `Referencia ${idx}`,
+    };
+  }),
 ];
 
 export function login(username: string, password: string): Promise<{ token: string }> {
