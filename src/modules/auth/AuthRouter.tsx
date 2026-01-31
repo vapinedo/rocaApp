@@ -1,1 +1,9 @@
-// ...Auth router for authentication module
+import { LoginPage } from './pages/LoginPage';
+import { Routes, Route } from 'react-router-dom';
+
+export const AuthRouter = () => (
+	<Routes>
+		<Route path="/login" element={<LoginPage />} />
+	</Routes>
+);
+
