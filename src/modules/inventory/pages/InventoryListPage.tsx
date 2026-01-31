@@ -30,6 +30,9 @@ export const InventoryListPage = () => {
 		setPage(1);
 	};
 
+	if (loading) return <div>Cargando movimientos...</div>;
+	if (error) return <div style={{ color: 'red' }}>Error: {error}</div>;
+	
 	return (
 		<div style={{ padding: 24 }}>
 			<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -70,15 +73,13 @@ export const InventoryListPage = () => {
 					style={{ padding: 8, flex: 1 }}
 				>
 					<option value="">Todos los tipos</option>
-											{STOCK_MOVE_TYPES.map((t: StockMoveType) => (
-												<option key={t} value={t}>{t}</option>
-											))}
+					{STOCK_MOVE_TYPES.map((t: StockMoveType) => (
+						<option key={t} value={t}>{t}</option>
+					))}
 				</select>
 			</div>
 
-			{loading && <div>Cargando movimientos...</div>}
-			{error && <div style={{ color: 'red' }}>Error: {error}</div>}
-			{!loading && !error && <StockMovesTable data={data} />}
+			<StockMovesTable data={data} />
 
 			<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 24, gap: 16 }}>
 				<button onClick={handlePrev} disabled={page === 1}>Anterior</button>
