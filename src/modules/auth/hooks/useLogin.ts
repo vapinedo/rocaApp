@@ -9,12 +9,15 @@ export function useLogin() {
   const handleLogin = async (username: string, password: string) => {
     setLoading(true);
     setError(null);
+
     try {
       const response = await login(username, password);
       setToken(response.token);
       localStorage.setItem('token', response.token);
+
     } catch (err: any) {
       setError(err.message || 'Error desconocido');
+      
     } finally {
       setLoading(false);
     }
