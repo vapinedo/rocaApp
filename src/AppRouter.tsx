@@ -1,7 +1,7 @@
 import LoginPage from './modules/auth/pages/LoginPage';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-export default function AppRouter() {
+export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
