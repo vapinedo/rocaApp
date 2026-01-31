@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useStockMoves } from '../hooks/useStockMoves';
 import type { StockMoveType } from '../hooks/useStockMoves';
 import { StockMovesTable } from '../components/StockMovesTable';
+import { InventoryFilters } from '../components/InventoryFilters';
 import { STOCK_MOVE_TYPES } from '../../../shared/constants/stockMoveTypes';
 
 export const InventoryListPage = () => {
@@ -25,18 +26,29 @@ export const InventoryListPage = () => {
 	const handlePrev = () => setPage((p) => Math.max(1, p - 1));
 	const handleNext = () => setPage((p) => Math.min(totalPages, p + 1));
 
-	const handleFilterChange = (setter: (v: string) => void) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-		setter(e.target.value);
+
+	// Cuando cambie un filtro, resetea la página
+	const handleProduct = (v: string) => {
+		setProduct(v);
+		setPage(1);
+	};
+	const handleWarehouse = (v: string) => {
+		setWarehouse(v);
+		setPage(1);
+	};
+	const handleType = (v: string) => {
+		setType(v);
 		setPage(1);
 	};
 
 	if (loading) return <div>Cargando movimientos...</div>;
 	if (error) return <div style={{ color: 'red' }}>Error: {error}</div>;
-	
+
 	return (
 		<div style={{ padding: 24 }}>
 			<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 				<h2>Listado de Movimientos de Inventario</h2>
+				
 				<button
 					onClick={() => {
 						localStorage.removeItem('token');
@@ -48,36 +60,14 @@ export const InventoryListPage = () => {
 				</button>
 			</div>
 
-			<div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
-				<input
-					type="text"
-					value={product}
-					placeholder="Producto"
-					style={{ padding: 8, flex: 1 }}
-					onChange={handleFilterChange(setProduct)}
-				/>
-
-				<select
-					value={warehouse}
-					onChange={handleFilterChange(setWarehouse)}
-					style={{ padding: 8, flex: 1 }}
-				>
-					<option value="">Todas las bodegas</option>
-					<option value="Bodega Central">Bodega Central</option>
-					<option value="Bodega Norte">Bodega Norte</option>
-				</select>
-
-				<select
-					value={type}
-					onChange={handleFilterChange(setType)}
-					style={{ padding: 8, flex: 1 }}
-				>
-					<option value="">Todos los tipos</option>
-					{STOCK_MOVE_TYPES.map((t: StockMoveType) => (
-						<option key={t} value={t}>{t}</option>
-					))}
-				</select>
-			</div>
+			<InventoryFilters
+				type={type}
+				product={product}
+				setType={handleType}
+				warehouse={warehouse}
+				setProduct={handleProduct}
+				setWarehouse={handleWarehouse}
+			/>
 
 			<StockMovesTable data={data} />
 
