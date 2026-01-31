@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 export const AuthRouter = () => (
 	<Routes>
-		<Route path="/login" element={<LoginPage />} />
+		<Route path="" element={<LoginPage />} />
 	</Routes>
 );
 

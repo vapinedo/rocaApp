@@ -5,8 +5,8 @@ import { PrivateRoute } from '../../shared/components/PrivateRoute';
 
 export const InventoryRouter = () => (
 	<Routes>
-		<Route path="/inventory" element={<PrivateRoute><InventoryListPage /></PrivateRoute>} />
-		<Route path="/inventory/:id" element={<PrivateRoute><InventoryDetailPage /></PrivateRoute>} />
+		<Route path="" element={<PrivateRoute><InventoryListPage /></PrivateRoute>} />
+		<Route path=":id" element={<PrivateRoute><InventoryDetailPage /></PrivateRoute>} />
 	</Routes>
 );
 

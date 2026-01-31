@@ -6,8 +6,8 @@ export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/*" element={<AuthRouter />} />
-        <Route path="/*" element={<InventoryRouter />} />
+        <Route path="/login/*" element={<AuthRouter />} />
+        <Route path="/inventory/*" element={<InventoryRouter />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
