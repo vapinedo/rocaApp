@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getStockMoveById } from '../../../core/mockApi';
 
 export function useStockMoveDetail(id: string) {
+  
   const query = useQuery({
     queryKey: ['stockMove', id],
     queryFn: () => getStockMoveById(id),

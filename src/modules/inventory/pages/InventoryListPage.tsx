@@ -1,10 +1,12 @@
-
 import { useState } from 'react';
 import { useStockMoves } from '../hooks/useStockMoves';
+import type { StockMoveType } from '../hooks/useStockMoves';
 import { StockMovesTable } from '../components/StockMovesTable';
-
+import { InventoryFilters } from '../components/InventoryFilters';
+import { STOCK_MOVE_TYPES } from '../../../shared/constants/stockMoveTypes';
 
 export const InventoryListPage = () => {
+
 	const [type, setType] = useState('');
 	const [product, setProduct] = useState('');
 	const [warehouse, setWarehouse] = useState('');
@@ -14,7 +16,7 @@ export const InventoryListPage = () => {
 	const { data, total, loading, error } = useStockMoves({
 		product: product || undefined,
 		warehouse: warehouse || undefined,
-		type: type ? (type as 'IN' | 'OUT' | 'ADJUST') : undefined,
+		type: type ? (type as StockMoveType) : undefined,
 		page,
 		pageSize,
 	});
@@ -24,61 +26,50 @@ export const InventoryListPage = () => {
 	const handlePrev = () => setPage((p) => Math.max(1, p - 1));
 	const handleNext = () => setPage((p) => Math.min(totalPages, p + 1));
 
-	// Reset page to 1 when filters change
-	const handleFilterChange = (setter: (v: string) => void) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-		setter(e.target.value);
+
+	// Cuando cambie un filtro, resetea la página
+	const handleProduct = (v: string) => {
+		setProduct(v);
+		setPage(1);
+	};
+	const handleWarehouse = (v: string) => {
+		setWarehouse(v);
+		setPage(1);
+	};
+	const handleType = (v: string) => {
+		setType(v);
 		setPage(1);
 	};
 
-		return (
-			<div style={{ padding: 24 }}>
-				<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-					<h2>Listado de Movimientos de Inventario</h2>
-					<button
-						onClick={() => {
-							localStorage.removeItem('token');
-							window.location.href = '/login';
-						}}
-						style={{ padding: '8px 16px' }}
-					>
-						Cerrar sesión
-					</button>
-				</div>
+	if (loading) return <div>Cargando movimientos...</div>;
+	if (error) return <div style={{ color: 'red' }}>Error: {error}</div>;
 
-			<div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
-				<input
-					type="text"
-					value={product}
-					placeholder="Producto"
-					style={{ padding: 8, flex: 1 }}
-					onChange={handleFilterChange(setProduct)}
-				/>
-
-				<select
-					value={warehouse}
-					onChange={handleFilterChange(setWarehouse)}
-					style={{ padding: 8, flex: 1 }}
+	return (
+		<div style={{ padding: 24 }}>
+			<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+				<h2>Listado de Movimientos de Inventario</h2>
+				
+				<button
+					onClick={() => {
+						localStorage.removeItem('token');
+						window.location.href = '/login';
+					}}
+					style={{ padding: '8px 16px' }}
 				>
-					<option value="">Todas las bodegas</option>
-					<option value="Bodega Central">Bodega Central</option>
-					<option value="Bodega Norte">Bodega Norte</option>
-				</select>
-                
-				<select
-					value={type}
-					onChange={handleFilterChange(setType)}
-					style={{ padding: 8, flex: 1 }}
-				>
-					<option value="">Todos los tipos</option>
-					<option value="IN">IN</option>
-					<option value="OUT">OUT</option>
-					<option value="ADJUST">ADJUST</option>
-				</select>
+					Cerrar sesión
+				</button>
 			</div>
 
-			{loading && <div>Cargando movimientos...</div>}
-			{error && <div style={{ color: 'red' }}>Error: {error}</div>}
-			{!loading && !error && <StockMovesTable data={data} />}
+			<InventoryFilters
+				type={type}
+				product={product}
+				setType={handleType}
+				warehouse={warehouse}
+				setProduct={handleProduct}
+				setWarehouse={handleWarehouse}
+			/>
+
+			<StockMovesTable data={data} />
 
 			<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 24, gap: 16 }}>
 				<button onClick={handlePrev} disabled={page === 1}>Anterior</button>

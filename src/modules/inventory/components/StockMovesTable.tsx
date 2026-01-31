@@ -7,7 +7,9 @@ interface StockMovesTableProps {
 }
 
 export const StockMovesTable = ({ data }: StockMovesTableProps) => {
+
   if (!data.length) return <div>No hay movimientos para mostrar.</div>;
+
   return (
     <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: 16 }}>
       <thead>
@@ -21,6 +23,7 @@ export const StockMovesTable = ({ data }: StockMovesTableProps) => {
           <th>Acciones</th>
         </tr>
       </thead>
+      
       <tbody>
         {data.map((move) => (
           <tr key={move.id}>

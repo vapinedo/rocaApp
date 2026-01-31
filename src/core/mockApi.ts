@@ -8,11 +8,12 @@ export type StockMove = {
   type: 'IN' | 'OUT' | 'ADJUST';
 };
 
-// Simulated database
+import { STOCK_MOVE_TYPES } from '../shared/constants/stockMoveTypes';
+
 let stockMoves: StockMove[] = [
   {
     id: '1',
-    type: 'IN',
+    type: STOCK_MOVE_TYPES[0],
     quantity: 100,
     date: '2026-01-01',
     product: 'Producto A',
@@ -21,19 +22,19 @@ let stockMoves: StockMove[] = [
   },
   {
     id: '2',
-    type: 'OUT',
+    type: STOCK_MOVE_TYPES[1],
     quantity: 20,
-    reference: 'Venta',
     date: '2026-01-02',
     product: 'Producto B',
     warehouse: 'Bodega Norte',
+    reference: 'Venta',
   },
   // 18 movimientos adicionales
   ...Array.from({ length: 18 }, (_, i) => {
     const idx = i + 3;
     return {
       id: String(idx),
-      type: ['IN', 'OUT', 'ADJUST'][i % 3] as 'IN' | 'OUT' | 'ADJUST',
+      type: STOCK_MOVE_TYPES[i % STOCK_MOVE_TYPES.length],
       quantity: 10 * (i + 1),
       date: `2026-01-${(i % 28 + 3).toString().padStart(2, '0')}`,
       product: `Producto ${String.fromCharCode(67 + (i % 5))}`,
