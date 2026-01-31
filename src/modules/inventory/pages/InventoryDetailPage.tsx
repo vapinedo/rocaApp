@@ -1,0 +1,1 @@
+// ...Inventory detail page component
