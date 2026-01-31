@@ -1,4 +1,3 @@
-
 import { Routes, Route } from 'react-router-dom';
 import { InventoryListPage } from './pages/InventoryListPage';
 import { InventoryDetailPage } from './pages/InventoryDetailPage';
