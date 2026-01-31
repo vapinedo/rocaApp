@@ -1,6 +1,6 @@
-
 import { useState } from 'react';
 import { useStockMoves } from '../hooks/useStockMoves';
+import type { StockMoveType } from '../hooks/useStockMoves';
 import { StockMovesTable } from '../components/StockMovesTable';
 
 
@@ -14,7 +14,7 @@ export const InventoryListPage = () => {
 	const { data, total, loading, error } = useStockMoves({
 		product: product || undefined,
 		warehouse: warehouse || undefined,
-		type: type ? (type as 'IN' | 'OUT' | 'ADJUST') : undefined,
+		type: type ? (type as StockMoveType) : undefined,
 		page,
 		pageSize,
 	});
@@ -34,6 +34,7 @@ export const InventoryListPage = () => {
 			<div style={{ padding: 24 }}>
 				<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 					<h2>Listado de Movimientos de Inventario</h2>
+
 					<button
 						onClick={() => {
 							localStorage.removeItem('token');
