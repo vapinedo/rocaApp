@@ -33,7 +33,7 @@ export function getStockMoves(params: GetStockMovesParams): Promise<{ data: Stoc
 
   return delay(() => {
     let filtered = stockDB;
-    if (product) filtered = filtered.filter((m) => m.product.includes(product));
+    if (product) filtered = filtered.filter((m) => m.product.toLowerCase().includes(product.toLowerCase()));
     if (warehouse) filtered = filtered.filter((m) => m.warehouse === warehouse);
     if (type) filtered = filtered.filter((m) => m.type === type);
     const total = filtered.length;
