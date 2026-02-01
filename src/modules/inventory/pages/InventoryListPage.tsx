@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { logout } from '../../../core/mockApi';
 import { useStockMoves } from '../hooks/useStockMoves';
 import { StockMovesTable } from '../components/StockMovesTable';
 import { InventoryFilters } from '../components/InventoryFilters';
@@ -47,10 +48,7 @@ export const InventoryListPage = () => {
 				<h2>Listado de Movimientos de Inventario</h2>
 				
 				<button
-					onClick={() => {
-						localStorage.removeItem('token');
-						window.location.href = '/login';
-					}}
+					onClick={logout}
 					style={{ padding: '8px 16px' }}
 				>
 					Cerrar sesión

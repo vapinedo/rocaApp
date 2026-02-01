@@ -1,4 +1,3 @@
-
 import { stockDB } from './stockDB';
 import { delay } from '../shared/utils/delay.util';
 import type { StockMove } from '../shared/models/stockMove';
@@ -20,6 +19,11 @@ export function login(username: string, password: string): Promise<{ token: stri
       throw new Error('Credenciales inválidas');
     }
   });
+}
+
+export function logout() {
+  localStorage.removeItem('token');
+  window.location.href = '/login';
 }
 
 export function getStockMoves(params: GetStockMovesParams): Promise<{ data: StockMove[]; total: number }> {
