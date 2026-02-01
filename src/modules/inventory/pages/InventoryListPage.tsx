@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { notify } from '../../../shared/utils/notify.util';
 import { logout } from '../../../core/mockApi';
 import { useStockMoves } from '../hooks/useStockMoves';
 import { StockMovesTable } from '../components/StockMovesTable';
@@ -39,8 +40,11 @@ export const InventoryListPage = () => {
 		setPage(1);
 	};
 
+	useEffect(() => {
+		if (error) notify(error, 'error');
+	}, [error]);
+
 	if (loading) return <div>Cargando movimientos...</div>;
-	if (error) return <div style={{ color: 'red' }}>Error: {error}</div>;
 
 	return (
 		<div style={{ padding: 24 }}>

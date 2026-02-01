@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { login } from '../../../core/mockApi';
+import { notify } from '../../../shared/utils/notify.util';
 import { setItem as setLocalStorageItem } from '../../../shared/utils/localStorage.util';
 
 export function useAuth() {
@@ -16,10 +17,15 @@ export function useAuth() {
       setToken(response.token);
       setLocalStorageItem('token', response.token);
 
-    } catch (err: any) {
-      setError(err.message || 'Error desconocido');
-      
-    } finally {
+    } 
+    
+    catch (err: any) {
+      const msg = err.message || 'Error desconocido';
+      setError(msg);
+      notify(msg, 'error');
+    } 
+
+    finally {
       setLoading(false);
     }
   };

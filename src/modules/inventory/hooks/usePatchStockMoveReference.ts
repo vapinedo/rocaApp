@@ -1,3 +1,4 @@
+import { notify } from '../../../shared/utils/notify.util';
 import { patchStockMoveReference } from '../../../core/mockApi';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -10,6 +11,9 @@ export function usePatchStockMoveReference() {
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['stockMoves'] });
       queryClient.invalidateQueries({ queryKey: ['stockMove', variables.id] });
+    },
+    onError: (error: any) => {
+      notify(error?.message || 'Error al editar referencia', 'error');
     },
   });
 
