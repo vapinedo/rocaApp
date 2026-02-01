@@ -1,4 +1,4 @@
-import { STOCK_MOVE } from '../constants/stockMoveTypes';
+import { STOCK_MOVE } from '@shared/constants/stockMoveTypes';
 
 export interface StockMove {
   id: string;

@@ -1,6 +1,6 @@
+import { getStockMoves } from '@core/mockApi';
 import { useQuery } from '@tanstack/react-query';
-import { getStockMoves } from '../../../core/mockApi';
-import { STOCK_MOVE } from '../../../shared/constants/stockMoveTypes';
+import { STOCK_MOVE } from '@shared/constants/stockMoveTypes';
 
 export interface UseStockMovesFilters {
   page?: number;

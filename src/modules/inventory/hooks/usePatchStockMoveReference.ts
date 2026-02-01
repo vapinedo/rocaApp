@@ -1,5 +1,5 @@
-import { notify } from '../../../shared/utils/notify.util';
-import { patchStockMoveReference } from '../../../core/mockApi';
+import { notify } from '@shared/utils/notify.util';
+import { patchStockMoveReference } from '@core/mockApi';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export function usePatchStockMoveReference() {

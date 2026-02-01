@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import { InventoryListPage } from './pages/InventoryListPage';
-import { InventoryDetailPage } from './pages/InventoryDetailPage';
-import { PrivateRoute } from '../../shared/components/PrivateRoute';
+import { PrivateRoute } from '@shared/components/PrivateRoute';
+import { InventoryListPage, InventoryDetailPage } from '@modules/inventory';
 
 export const InventoryRouter = () => (
 	<Routes>

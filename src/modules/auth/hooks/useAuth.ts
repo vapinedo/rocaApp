@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { login } from '../../../core/mockApi';
-import { notify } from '../../../shared/utils/notify.util';
-import { setItem as setLocalStorageItem } from '../../../shared/utils/localStorage.util';
+import { login } from '@core/mockApi';
+import { notify } from '@shared/utils/notify.util';
+import { setItem as setLocalStorageItem } from '@shared/utils/localStorage.util';
 
 export function useAuth() {
   const [loading, setLoading] = useState(false);

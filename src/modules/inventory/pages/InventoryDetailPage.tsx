@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { notify } from '../../../shared/utils/notify.util';
+import { notify } from '@shared/utils/notify.util';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useStockMoveDetail } from '../hooks/useStockMoveDetail';
-import { usePatchStockMoveReference } from '../hooks/usePatchStockMoveReference';
+import { useStockMoveDetail, usePatchStockMoveReference } from '@modules/inventory';
 
 export const InventoryDetailPage = () => {
 

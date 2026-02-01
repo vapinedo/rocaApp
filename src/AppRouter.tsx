@@ -1,5 +1,5 @@
-import { AuthRouter } from './modules/auth/AuthRouter';
-import { InventoryRouter } from './modules/inventory/InventoryRouter';
+import { AuthRouter } from '@modules/auth';
+import { InventoryRouter } from '@modules/inventory';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 export const AppRouter = () => {

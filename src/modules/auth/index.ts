@@ -1,3 +1,3 @@
-export { useAuth } from './hooks/useAuth';
-export { AuthRouter } from './AuthRouter';
-export { LoginPage } from './pages/LoginPage';
+export { useAuth } from '@modules/auth/hooks/useAuth';
+export { AuthRouter } from '@modules/auth/AuthRouter';
+export { LoginPage } from '@modules/auth/pages/LoginPage';

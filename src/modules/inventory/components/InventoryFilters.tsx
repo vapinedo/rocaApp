@@ -1,4 +1,4 @@
-import { STOCK_MOVE } from '../../../shared/constants/stockMoveTypes';
+import { STOCK_MOVE } from '@shared/constants/stockMoveTypes';
 
 interface InventoryFiltersProps {
   type: string;

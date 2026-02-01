@@ -1,6 +1,6 @@
-import { AppRouter } from './AppRouter';
+import { AppRouter } from '@src/AppRouter';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { NotificationProvider } from './shared/components/NotificationProvider';
+import { NotificationProvider } from '@shared/components/NotificationProvider';
 
 export const App = () => {
   const queryClient = new QueryClient();
