@@ -1,5 +1,5 @@
-import type { StockMove } from '../shared/models/stockMove';
-import { STOCK_MOVE } from '../shared/constants/stockMoveTypes';
+import type { StockMove } from '@shared/models/stockMove';
+import { STOCK_MOVE } from '@shared/constants/stockMoveTypes';
 
 export const stockDB: StockMove[] = [
   {

@@ -1,7 +1,7 @@
-import { stockDB } from './stockDB';
-import { delay } from '../shared/utils/delay.util';
-import type { StockMove } from '../shared/models/stockMove';
-import { STOCK_MOVE } from '../shared/constants/stockMoveTypes';
+import { stockDB } from '@core/stockDB';
+import { delay } from '@shared/utils/delay.util';
+import type { StockMove } from '@shared/models/stockMove';
+import { STOCK_MOVE } from '@shared/constants/stockMoveTypes';
 
 export type GetStockMovesParams = {
   page?: number;

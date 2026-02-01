@@ -1,10 +1,8 @@
+import { logout } from '@core/mockApi';
 import { useState, useEffect } from 'react';
-import { notify } from '../../../shared/utils/notify.util';
-import { logout } from '../../../core/mockApi';
-import { useStockMoves } from '../hooks/useStockMoves';
-import { StockMovesTable } from '../components/StockMovesTable';
-import { InventoryFilters } from '../components/InventoryFilters';
-import { STOCK_MOVE } from '../../../shared/constants/stockMoveTypes';
+import { notify } from '@shared/utils/notify.util';
+import { STOCK_MOVE } from '@shared/constants/stockMoveTypes';
+import { useStockMoves, StockMovesTable, InventoryFilters } from '@modules/inventory';
 
 export const InventoryListPage = () => {
 

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getStockMoveById } from '../../../core/mockApi';
+import { getStockMoveById } from '@core/mockApi';
 
 export function useStockMoveDetail(id: string) {
   
