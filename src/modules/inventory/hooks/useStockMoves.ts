@@ -15,6 +15,7 @@ export function useStockMoves(filters: UseStockMovesFilters) {
   const query = useQuery({
     queryKey: ['stockMoves', filters],
     queryFn: () => getStockMoves(filters),
+    placeholderData: (prev) => prev,
   });
 
   return {
