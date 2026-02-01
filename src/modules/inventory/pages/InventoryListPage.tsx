@@ -25,8 +25,6 @@ export const InventoryListPage = () => {
 	const handlePrev = () => setPage((p) => Math.max(1, p - 1));
 	const handleNext = () => setPage((p) => Math.min(totalPages, p + 1));
 
-
-	// Cuando cambie un filtro, resetea la página
 	const handleProduct = (v: string) => {
 		setProduct(v);
 		setPage(1);
